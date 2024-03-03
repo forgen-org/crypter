@@ -1,0 +1,11 @@
+[package]
+name = "encoder"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hex = "0.4.3"
+rust-crypto = "0.2.0"
+rand = "0.8.5"
+cliclack = "0.1.12"
+clipboard = "0.5"
