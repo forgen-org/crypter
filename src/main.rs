@@ -138,6 +138,8 @@ pub fn decrypt(iv_data_mac: &str, key: &str) -> Result<Vec<u8>, Box<dyn Error>> 
 
     if result {
         println!("Successful decryption");
+    } else {
+        println!("Bad password");
     }
 
     Ok(dst)
@@ -158,9 +160,16 @@ fn main() -> Result<(), ()> {
                 .placeholder("encrypted version")
                 .interact()
                 .unwrap();
-            let decrypted_bytes = decrypt(text.as_str(), &password).unwrap();
-            let res = from_utf8(&decrypted_bytes).unwrap();
-            println!("\n{}", res);
+            let result = decrypt(text.as_str(), &password);
+            match result {
+                Err(_) => {
+                    println!("Decryption error");
+                }
+                Ok(text) => {
+                    let res = from_utf8(&text).unwrap();
+                    println!("\n{}", res);
+                }
+            }
             Ok(())
         }
     }
